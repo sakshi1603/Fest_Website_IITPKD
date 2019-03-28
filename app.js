@@ -7,6 +7,7 @@ var passport = require("passport");
 var LocalStrategy = require("passport-local");
 var passportLocalMongoose = require("passport-local-mongoose");
 var User = require("./models/user.js");
+var SHA256 = require("crypto-js/sha256");
 
 
 mongoose.connect("mongodb://localhost/website", {useNewUrlParser: true});
@@ -48,8 +49,8 @@ app.post("/addUser", (req, res)=>{
         name: Joi.string().required(),
         email: Joi.string().trim().email().required(),
         username: Joi.string().required(),
-        password: Joi.string().required(),
-        repass: Joi.string().required(),
+        password: Joi.string().min(6).max(14).required(),
+        repass: Joi.string().min(6).max(14).required(),
         college_name: Joi.string().required()
     });
     
@@ -62,7 +63,7 @@ app.post("/addUser", (req, res)=>{
         else
         {
             console.log(result);
-            User.register(new User({name: result.name, email: result.email, username: result.username, college_name: result.college_name}), result.password, function(err, user){
+            User.register(new User({name: result.name, email: result.email, username: result.username, college_name: result.college_name}), SHA256(result.password), function(err, user){
                 if(err){
                     console.log(err);
                     return res.render('signup.ejs');
