@@ -8,6 +8,7 @@ var LocalStrategy = require("passport-local");
 var passportLocalMongoose = require("passport-local-mongoose");
 var User = require("./models/user.js");
 var SHA256 = require("crypto-js/sha256");
+var mongo = require("mongodb").MongoClient;
 
 
 mongoose.connect("mongodb://localhost/website", {useNewUrlParser: true});
@@ -28,7 +29,8 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.get("/", function(req,res){
-   res.render("home.ejs"); 
+   res.render("home.ejs");
+   console.log(User.find({username: "recursed"}));
 });
 
 app.get("/account", isLoggedIn, function(req,res){
@@ -60,10 +62,14 @@ app.post("/addUser", (req, res)=>{
             res.send("Some error has occurred");
             console.log(error);
         }
+        else if(result.password != result.repass)
+        {
+            res.send("Enter the same pass in pass and respass");
+        }
         else
         {
             console.log(result);
-            User.register(new User({name: result.name, email: result.email, username: result.username, college_name: result.college_name}), SHA256(result.password), function(err, user){
+            User.register(new User({name: result.name, email: result.email, username: result.username, college_name: result.college_name, password: SHA256(result.password)}), function(err, user){
                 if(err){
                     console.log(err);
                     return res.render('signup.ejs');
@@ -89,6 +95,40 @@ app.post("/login", passport.authenticate("local", {
 app.get("/logout", function(req, res){
     req.logout();
     res.redirect("/");
+});
+
+app.get('/forgot_pass', (req, res)=>{
+    res.render('forgot_pass.ejs');
+});
+
+app.post('/send_pass', (req, res)=>{
+    mongo.connect('mongodb://localhost/website', (error, client)=>{
+        if(error)
+        {
+            console.log(error);
+        }
+        else
+        {
+            var db = client.db('website');
+            var collection = db.collection('users');
+            
+            collection.findOne({username : req.body.username, email : req.body.email}, (err, item)=>{
+                if(err)
+                {
+                    res.send("invalid username and email pair");
+                }
+                else
+                {
+                    //////// give user the password via mail......
+                    console.log(item);
+                }
+            });
+        }
+        
+        client.close(); // close the connection
+    });
+    
+    
 });
 
 function isLoggedIn(req, res, next){
