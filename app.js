@@ -1,18 +1,28 @@
 var express = require("express");
 var app = express();
 var mongoose = require("mongoose");
+var morgan = require("morgan");
+var flash = require("connect-flash");
 var bodyParser = require("body-parser");
 var Joi = require("joi"); // This module could be used for evaluating user input
 var passport = require("passport");
 var LocalStrategy = require("passport-local");
 var passportLocalMongoose = require("passport-local-mongoose");
 var User = require("./models/user.js");
-var SHA256 = require("crypto-js/sha256");
+var bcrypt = require('bcrypt');
+var crypto = require('crypto');
 var mongo = require("mongodb").MongoClient;
+var cookieParser = require("cookie-parser");
+var nodemailer = require("nodemailer");
+
+require('./config/passport')(passport);
 
 
 mongoose.connect("mongodb://localhost/website", {useNewUrlParser: true});
 mongoose.set('useCreateIndex', true);
+
+app.use(morgan('dev'));
+app.use(cookieParser());
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(require("express-session")({
@@ -23,6 +33,7 @@ app.use(require("express-session")({
 
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
 
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
@@ -30,7 +41,6 @@ passport.deserializeUser(User.deserializeUser());
 
 app.get("/", function(req,res){
    res.render("home.ejs");
-   console.log(User.find({username: "recursed"}));
 });
 
 app.get("/account", isLoggedIn, function(req,res){
@@ -41,9 +51,11 @@ app.get("/signup", function(req,res){
     res.render("signup.ejs");
 });
 
+app.get('/auth/google', passport.authenticate('google', {scope: ['profile', 'email']}));
 
-
-
+app.get('/auth/google/callback', 
+  passport.authenticate('google', { successRedirect: '/account',
+	                                      failureRedirect: '/' }));
 
 app.post("/addUser", (req, res)=>{
     
@@ -69,7 +81,8 @@ app.post("/addUser", (req, res)=>{
         else
         {
             console.log(result);
-            User.register(new User({name: result.name, email: result.email, username: result.username, college_name: result.college_name, password: SHA256(result.password)}), function(err, user){
+            var pass_hash = bcrypt.hashSync(result.password, 10);
+            User.register(new User({name: result.name, email: result.email, username: result.username, college_name: result.college_name, password: pass_hash}), result.password, function(err, user){
                 if(err){
                     console.log(err);
                     return res.render('signup.ejs');
@@ -101,6 +114,7 @@ app.get('/forgot_pass', (req, res)=>{
     res.render('forgot_pass.ejs');
 });
 
+
 app.post('/send_pass', (req, res)=>{
     mongo.connect('mongodb://localhost/website', (error, client)=>{
         if(error)
@@ -119,8 +133,48 @@ app.post('/send_pass', (req, res)=>{
                 }
                 else
                 {
-                    //////// give user the password via mail......
+                    var new_pass = crypto.randomBytes(64).toString('hex');
                     console.log(item);
+                    console.log(new_pass);
+                    var new_pass_hash = bcrypt.hashSync(new_pass, 10);
+                    collection.updateOne({username : req.body.username, email: req.body.email}, {password: new_pass_hash}, (err2, item2)=>{
+                        if(err2)
+                        {
+                            res.send("Password could not be update for some reason");
+                        }
+                        else
+                        {
+                            console.log(item2);
+                            
+                            
+                            var transporter = nodemailer.createTransport({
+                                service: 'gmail',
+                                auth: {
+                                    user: 'the.bus.app.project@gmail.com',
+                                    pass: 'thebusapp'
+                                }
+                            });
+                            
+                            var mailOptions = {
+                                from: 'the.bus.app.project@gmail.com',
+                                to: req.body.email,
+                                subject: 'forgot password.....',
+                                text: 'your new password is: ' + new_pass
+                            };
+                            
+                            transporter.sendMail(mailOptions, (err3, info)=>{
+                                if(err3)
+                                    console.log(err3);
+                                else
+                                {
+                                    console.log('mail sent: ' + info.response);
+                                }
+                                
+                            });
+                            
+                            
+                        }
+                    });
                 }
             });
         }
