@@ -8,7 +8,7 @@ var Joi = require("joi"); // This module could be used for evaluating user input
 var passport = require("passport");
 var LocalStrategy = require("passport-local");
 var passportLocalMongoose = require("passport-local-mongoose");
-var User = require("./models/user.js");
+var User = require("./models/user");
 var bcrypt = require('bcrypt');
 var crypto = require('crypto');
 var mongo = require("mongodb").MongoClient;
@@ -44,7 +44,7 @@ app.get("/", function(req,res){
 });
 
 app.get("/account", isLoggedIn, function(req,res){
-    res.render("account.ejs");
+    res.render("account.ejs", { user: req.user });
 });
 
 app.get("/signup", function(req,res){
@@ -114,6 +114,7 @@ app.get('/forgot_pass', (req, res)=>{
     res.render('forgot_pass.ejs');
 });
 
+app.use(express.static("public"));
 
 app.post('/send_pass', (req, res)=>{
     mongo.connect('mongodb://localhost/website', (error, client)=>{
@@ -137,9 +138,10 @@ app.post('/send_pass', (req, res)=>{
                     console.log(item);
                     console.log(new_pass);
                     var new_pass_hash = bcrypt.hashSync(new_pass, 10);
-                    collection.updateOne({username : req.body.username, email: req.body.email}, {password: new_pass_hash}, (err2, item2)=>{
+                    collection.updateOne({username : req.body.username, email: req.body.email}, {$set : {password: new_pass_hash}}, (err2, item2)=>{
                         if(err2)
                         {
+                            console.log(err2);
                             res.send("Password could not be update for some reason");
                         }
                         else
@@ -168,6 +170,7 @@ app.post('/send_pass', (req, res)=>{
                                 else
                                 {
                                     console.log('mail sent: ' + info.response);
+                                    res.redirect('/')
                                 }
                                 
                             });
@@ -179,7 +182,6 @@ app.post('/send_pass', (req, res)=>{
             });
         }
         
-        client.close(); // close the connection
     });
     
     
