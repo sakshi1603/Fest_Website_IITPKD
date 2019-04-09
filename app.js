@@ -95,12 +95,16 @@ app.post("/addUser", (req, res)=>{
 });
 
 app.get("/login", function(req, res){
-   res.render("login.ejs"); 
+   res.render("login.ejs", {login_failure: false}); 
+});
+
+app.get("/login_failed", function(req, res){
+   res.render("login.ejs", {login_failure: true}); 
 });
 
 app.post("/login", passport.authenticate("local", {
     successRedirect: "/account",
-    failureRedirect: "/login"
+    failureRedirect: "/login_failed"
 }) ,function(req, res){
 });
 

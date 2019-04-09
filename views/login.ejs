@@ -47,6 +47,9 @@
 						<input type="checkbox">Remember Me
 					</div> -->
 					<div class="form-group">
+						<% if(login_failure == true){
+							%><h4 style="color: red">Wrong password</h4>
+						<% }%>
 						<input type="submit" value="Login" class="btn float-right login_btn">
 					</div>
 				</form>
