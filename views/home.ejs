@@ -9,7 +9,7 @@
   <meta name='viewport' content='width=device-width, initial-scale=1'>
   <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
 
-  <link rel="stylesheet" href="stylesheets/home.css">
+	<link rel="stylesheet" type="text/css" href="stylesheets/home.css">
 
   <meta name="google-site-verification" content="7SVvxCgA6vDl3wSzow1vHCQcdyTnPH21mbhvx4mrwP0" />
 
@@ -20,11 +20,33 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
+  <script>
+$(document).ready(function(){
+  // Add smooth scrolling to all links
+  $("a").on('click', function(event) {
+    if (this.hash !== "") {
+      event.preventDefault();
+      var hash = this.hash;
+      $('html, body').animate({scrollTop: $(hash).offset().top}, 800, function(){window.location.hash = hash;});
+    }
+  });
+});
+</script>
+
+<style>
+body, html, .main {
+  height: 100%;
+}
+section {
+  min-height: 100%;
+}
+</style>
+
 </head>
 
 <body>
 
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -32,7 +54,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">FestLogo</a>
+      <a class="navbar-brand">FestLogo</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
@@ -46,12 +68,11 @@
             <li><a href="#">Page 1-3</a></li>
           </ul>
         </li> -->
-
-        <li><a href="#">Home</a></li>
-        <li><a href="#">About Us</a></li>
-        <li><a href="#">Why CA?</a></li>
-        <li><a href="#">Incentives</a></li>
-        <li><a href="#">Responsiblities</a></li>
+        <li class="nav-item"><a href="#home">Home</a></li>
+        <li class="nav-item"><a href="#about">About Us</a></li>
+        <li class="nav-item"><a href="#ca">Why CA?</a></li>
+        <li class="nav-item"><a href="#incentives">Incentives</a></li>
+        <li class="nav-item"><a href="#response">Responsiblities</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a id="login" href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
@@ -59,13 +80,44 @@
         <li><a id="googlein" href="/auth/google"><i class='fab fa-google' style='font-size:16px;color: white;'></i></a></li>
       </ul>
     </div>
-  </div>
+
+</div>
 </nav>
 
-<div class="container">
-  <h3>Collapsible Navbar</h3>
+
+<div class="major" data-spy="scroll" data-target="#navbar navbar-inverse" data-offset="0">
+  <div class="container" id="home">
+    <section>
+  <h3 >Collapsible Navbar</h3>
   <p>In this example, the navigation bar is hidden on small screens and replaced by a button in the top right corner (try to re-size this window).
   <p>Only when the button is clicked, the navigation bar will be displayed.</p>
+  >/sec
+  </div>
+  <div class="container"  id="about">
+    <section>
+    <h3>About Demo</h3>
+    <p>qwertyuiop
+       asdfghjkl
+       zxcvbnm</p></section>
+  </div>
+  <div class="container" id="ca">
+    <h3>Why CA Demo</h3>
+    <p>qwertyuiop
+       asdfghjkl
+       zxcvbnm</p>
+  </div>
+  <div class="container" id="incentives">
+    <h3>Incentives Demo</h3>
+    <p>qwertyuiop
+       asdfghjkl
+       zxcvbnm</p>
+  </div>
+  <div class="container" id="response">
+    <h3>Response</h3>
+    <p>qwertyuiop
+       asdfghjkl
+       zxcvbnm</p>
+    </div>
 </div>
 
 </body>

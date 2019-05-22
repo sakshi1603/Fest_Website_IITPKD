@@ -50,11 +50,16 @@ app.get("/signup", function(req,res){
     res.render("signup.ejs");
 });
 
+// app.get("/account/profile", function(req, res) {
+//     res.render("profile.ejs");
+// });
+
 app.get('/auth/google', passport.authenticate('google', {scope: ['profile', 'email']}));
 
 app.get('/auth/google/callback', 
   passport.authenticate('google', { successRedirect: '/account',
 	                                      failureRedirect: '/' }));
+	                                      
 
 app.post("/addUser", (req, res)=>{
     
@@ -79,17 +84,30 @@ app.post("/addUser", (req, res)=>{
         }
         else
         {
-            console.log(result);
-            var pass_hash = bcrypt.hashSync(result.password, 10);
-            User.register(new User({name: result.name, email: result.email, username: result.username, college_name: result.college_name, password: pass_hash}), result.password, function(err, user){
-                if(err){
-                    console.log(err);
-                    return res.render('signup.ejs');
-                }
-                passport.authenticate("local")(req, res, function(){
-                     res.redirect("/signup");
-                });
-            });
+          User.findOne({ email: result.email }, function(err, user) {
+            if(err){
+                console.log(err);
+            }
+            if (user) {
+              req.flash('error', 'User with this email is already registered');
+              console.log('yesss');
+              res.redirect('/login');
+            }
+            else {
+              console.log(result);
+              var pass_hash = bcrypt.hashSync(result.password, 10);
+              User.register(new User({name: result.name, email: result.email, username: result.username, college_name: result.college_name, password: pass_hash}), result.password, function(err, user){
+                  if(err){
+                      console.log(err);
+                      return res.render('signup.ejs');
+                  }
+                  passport.authenticate("local")(req, res, function(){
+                       res.redirect("/signup");
+                     console.log('here');
+                  });
+              });
+            }
+          });
         }
     });
 });
@@ -256,6 +274,40 @@ app.post('/reset/:token', function(req, res) {
     res.redirect('home.ejs');
   });
 });
+
+
+app.get('/account/profile', function(req, res) {
+    
+    if(req.user) //User logged in
+    {
+      User.findOne({email: req.user.email}, (err, user)=>{
+        if(err)
+        {
+          console.log(err);
+        }
+        else
+        {
+          res.render('profile.ejs', {data: {username: user.username, email: user.email, phone: user.phone}});
+          console.log({username: user.username, email: user.email, phone: user.phone}); // done now work on after this:-))
+        }
+      });
+    }
+    else
+    {
+      res.redirect('/login');
+    }
+});
+
+app.get('/edit_profile', function(req, res) {
+    if(!req.user) //User logged in
+      res.redirect('/login');
+});
+
+// app.post('/update_data', (req, res)=>{
+  
+//   User.findOne({uesrname: email: req.body.email})
+  
+// });
 
 function isLoggedIn(req, res, next){
     if(req.isAuthenticated()){
