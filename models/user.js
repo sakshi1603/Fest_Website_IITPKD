@@ -10,7 +10,8 @@ var UserSchema = new mongoose.Schema({
         repass: String,
         college_name: String,
         resetPasswordToken: String,
-        resetPasswordExpires: Date
+        resetPasswordExpires: Date,
+        registerToken: String
     
 });
 

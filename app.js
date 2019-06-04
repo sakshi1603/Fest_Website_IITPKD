@@ -1,5 +1,6 @@
 var express = require("express");
 var app = express();
+var randomstring = require('randomstring');
 var mongoose = require("mongoose");
 var morgan = require("morgan");
 var flash = require("connect-flash");
@@ -50,6 +51,11 @@ app.get("/signup", function(req,res){
     res.render("signup.ejs");
 });
 
+app.get("/account/notifications", function(req,res){
+  res.render("notifications.ejs");
+});
+
+
 // app.get("/account/profile", function(req, res) {
 //     res.render("profile.ejs");
 // });
@@ -96,7 +102,7 @@ app.post("/addUser", (req, res)=>{
             else {
               console.log(result);
               var pass_hash = bcrypt.hashSync(result.password, 10);
-              User.register(new User({name: result.name, email: result.email, username: result.username, college_name: result.college_name, password: pass_hash}), result.password, function(err, user){
+              User.register(new User({name: result.name, email: result.email, registerToken:randomstring.generate(7), username: result.username, college_name: result.college_name, password: pass_hash}), result.password, function(err, user){
                   if(err){
                       console.log(err);
                       return res.render('signup.ejs');
@@ -287,7 +293,7 @@ app.get('/account/profile', function(req, res) {
         }
         else
         {
-          res.render('profile.ejs', {data: {username: user.username, email: user.email, phone: user.phone}});
+          res.render('user.ejs', {data: {username: user.username, email: user.email, phone: user.phone}});
           console.log({username: user.username, email: user.email, phone: user.phone}); // done now work on after this:-))
         }
       });

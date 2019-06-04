@@ -2,7 +2,7 @@ var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 var User            = require('../models/user');
 var configAuth = require('./auth');
-
+var randomstring = require("randomstring");
 module.exports = function(passport) {
     
     passport.serializeUser(function(user, done){
@@ -32,6 +32,7 @@ module.exports = function(passport) {
 	    				var newUser = new User();
 	    				newUser.name = profile.displayName;
 	    				newUser.email = profile.emails[0].value;
+	    				newUser.registerToken = String(randomstring.generate(7));
 
 	    				newUser.save(function(err){
 	    					if(err)
