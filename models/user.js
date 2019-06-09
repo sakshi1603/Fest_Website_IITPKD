@@ -11,7 +11,14 @@ var UserSchema = new mongoose.Schema({
         college_name: String,
         resetPasswordToken: String,
         resetPasswordExpires: Date,
-        registerToken: String
+        registerToken: String,
+        address: String,
+        phoneNumber: String,
+        city: String,
+        country: String,
+        aboutMe: String,
+        notifications: [],
+        registrations: []
     
 });
 

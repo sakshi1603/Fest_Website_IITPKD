@@ -17,6 +17,9 @@
 
     <!-- Animation library for notifications   -->
     <link href="../stylesheets/animate.min.css" rel="stylesheet"/>
+    
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 
     <!--  Light Bootstrap Table core CSS    -->
     <link href="../stylesheets/light-bootstrap-dashboard.css?v=1.4.0" rel="stylesheet"/>
@@ -31,7 +34,7 @@
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="stylesheets/pe-icon-7-stroke.css" rel="stylesheet" />
 </head>
-<body background="https://github.com/RathoreDevansh08/FestWeb_CA-Portal/blob/master/Accounts_n_Profile_Page/back.jpeg?raw=true">
+<body style="background:#d7e0e0">
 
 <div class="wrapper">
     <div class="sidebar" data-color="blue">
@@ -60,7 +63,7 @@
                 <li>
                     <a href="/account/notifications">
                         <i class="pe-7s-bell"></i>
-                        <p>Notifications</p>
+                        <p>Registrations</p>
                     </a>
                 </li>
             </ul>
@@ -91,17 +94,24 @@
                               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <i class="fa fa-globe"></i>
                                     <b class="caret hidden-sm hidden-xs"></b>
-                                    <span class="notification hidden-sm hidden-xs">3</span>
+                                    <% if(user.notifications.length != 0) { %>
+                                    <span class="notification hidden-sm hidden-xs"><%= user.notifications.length %></span>
 									<p class="hidden-lg hidden-md">
-										3 Notifications
+										<%= user.notifications.length %> Notifications
 										<b class="caret"></b>
 									</p>
+									<% } %>
                               </a>
                               <ul class="dropdown-menu">
-                                <li><a href="#">Notification 1</a></li>
-                                <li><a href="#">Notification 2</a></li>
-                                <li><a href="#">Notification 3</a></li>
+                                 <% if(user.notifications.length != 0) { %>
+                                <% for (var i=0; i < user.notifications.length; i++) { %>
+                                    <li style="color: red"><%= user.notifications[i] %></li>
+                                <% } %>
+                                <% } else { %>
+                                    <li style="color: grey; margin-left:1%;">No recent notification</li>
+                                <% } %>
                               </ul>
+                        </li>
                     </ul>
 				<ul class="nav navbar-nav navbar-right">
                         <li>
@@ -125,39 +135,36 @@
                                 <h4 class="title">Edit Profile</h4>
                             </div>
                             <div class="content">
-                                <form>
+                                <form action="/updateProfile" method="POST">
                                     <div class="row">
-                                        <div class="col-md-5">
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>College</label>
-                                       <input type="text" class="form-control" placeholder="College Name">
+                                       <input type="text" name="college_name" class="form-control" placeholder= "College Name" value = "<%= user.college_name %>">
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Username</label>
-                                                <input type="text" class="form-control" placeholder="Username" value="eg. dsr08">
+                                                <input type="text" name="username" class="form-control" placeholder="Username" value = "<%= user.username %>" >
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Email address</label>
-                                        <input type="email" class="form-control" disabled placeholder="Email" value="EMail">
+                                                <input readonly type="email" name="email" class="form-control"  placeholder="Email" value="<%= user.email %>">
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-12">
                                             <div class="form-group">
-                                                <label>First Name</label>
-                                                <input type="text" class="form-control" placeholder="Company" value="eg. Devansh">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Last Name</label>
-                                                <input type="text" class="form-control" placeholder="Last Name" value="eg. Rathore">
+                                                <label>Name</label>
+                                                <input type="text" name="name" class="form-control" placeholder="Full Name" value="<%= user.name %>">
                                             </div>
                                         </div>
                                     </div>
@@ -166,7 +173,16 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Address</label>
-                                                <input type="text" class="form-control" placeholder="Home Address" value="eg. Address">
+                                                <input type="text" name="address" class="form-control" placeholder="Home Address" value="<%= user.address %>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Phone Number</label>
+                                                <input type="text" name="phoneNumber" class="form-control" placeholder="Mobile Number" value="<%= user.phoneNumber %>">
                                             </div>
                                         </div>
                                     </div>
@@ -175,13 +191,13 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>City</label>
-                                                <input type="text" class="form-control" placeholder="City" value="Palakkad">
+                                                <input type="text" name="city" class="form-control" placeholder="City" value="<%= user.city %>">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Country</label>
-                                                <input type="text" class="form-control" placeholder="Country" value="India">
+                                                <input type="text" name="country" class="form-control" placeholder="Country" value="<%= user.country %>">
                                             </div>
                                         </div>
                                     </div>
@@ -190,7 +206,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>About Me</label>
-                                                <textarea rows="5" class="form-control" placeholder="Here can be your description" value="Mike">Coders Gonna Code! No Limits...</textarea>
+                                                <textarea name="aboutMe" rows="5" class="form-control" placeholder="Tell Something about you" value=""><%= user.aboutMe %></textarea>
                                             </div>
                                         </div>
                                     </div>

@@ -51,8 +51,8 @@ app.get("/signup", function(req,res){
     res.render("signup.ejs");
 });
 
-app.get("/account/notifications", function(req,res){
-  res.render("notifications.ejs");
+app.get("/account/registrations", isLoggedIn, function(req,res){
+  res.render("registrations.ejs", {user: req.user});
 });
 
 
@@ -65,6 +65,37 @@ app.get('/auth/google', passport.authenticate('google', {scope: ['profile', 'ema
 app.get('/auth/google/callback', 
   passport.authenticate('google', { successRedirect: '/account',
 	                                      failureRedirect: '/' }));
+	                                      
+app.post("/updateProfile", (req, res) => {
+  User.findOne({ email: req.body.email }, function(err,user) {
+    if(err) {
+      res.send("Some error has occured");
+      console.log(err);
+    }
+    if(user) {
+      user.college_name = req.body.college_name;
+      user.username = req.body.username;
+      user.name = req.body.name;
+      user.address = req.body.address;
+      user.phoneNumber = req.body.phoneNumber;
+      user.city = req.body.city;
+      user.country = req.body.country;
+      user.aboutMe = req.body.aboutMe;
+      if(user.notifications[0]=="Please update your profile in the profile section.") {
+        user.notifications = user.notifications.slice(1,user.notifications.length);
+      }
+      
+      user.save(function (err) {
+        if(err) {
+            console.log(err);
+        }
+        res.redirect("/account/profile");
+      });
+      console.log(user);
+    }
+  });
+  
+});
 	                                      
 
 app.post("/addUser", (req, res)=>{
@@ -87,6 +118,7 @@ app.post("/addUser", (req, res)=>{
         else if(result.password != result.repass)
         {
             res.send("Enter the same pass in pass and respass");
+            console.log('here');
         }
         else
         {
@@ -96,21 +128,38 @@ app.post("/addUser", (req, res)=>{
             }
             if (user) {
               req.flash('error', 'User with this email is already registered');
-              console.log('yesss');
               res.redirect('/login');
             }
             else {
               console.log(result);
               var pass_hash = bcrypt.hashSync(result.password, 10);
-              User.register(new User({name: result.name, email: result.email, registerToken:randomstring.generate(7), username: result.username, college_name: result.college_name, password: pass_hash}), result.password, function(err, user){
+              var token = randomstring.generate(7);
+              User.register(new User({name: result.name, email: result.email, registerToken:token, notifications: ["Please update your profile in the profile section."], username: result.username, college_name: result.college_name, password: pass_hash}), result.password, function(err, user){
                   if(err){
                       console.log(err);
                       return res.render('signup.ejs');
                   }
                   passport.authenticate("local")(req, res, function(){
-                       res.redirect("/signup");
-                     console.log('here');
-                  });
+                    async.waterfall([function(){
+                    var smtpTransport = nodemailer.createTransport({
+                      service: 'Gmail', 
+                      secure: false,
+                      auth: {
+                        user: '111701013@smail.iitpkd.ac.in',
+                        pass: 'durga@B90'
+                      }
+                    });
+                    var mailOptions = {
+                      to: result.email,
+                      from: '111701013@smail.iitpkd.ac.in',
+                      subject: 'IIT-PKD Petrichor',
+                      text: 'Dear ' + result.name + ',\n\nThank you for registering with us.\n\nYour Petrichor Token ID is ' + 
+                              token + '. Please make a note of this for future reference.\n\nThanks for showing interest in' + 
+                              'Petrichor 2019. Stay tuned for more updates.'
+                    };
+                    smtpTransport.sendMail(mailOptions);
+                       res.redirect("/account");
+                  }])});
               });
             }
           });
@@ -176,14 +225,15 @@ app.post('/forgot', function(req, res, next) {
     function(token, user, done) {
       var smtpTransport = nodemailer.createTransport({
         service: 'Gmail', 
+        // secure: false,
         auth: {
-          user: 'the.bus.app.project@gmail.com',
-          pass: 'thebusapp'
+          user: '111701013@smail.iitpkd.ac.in',
+          pass: 'durga@B90'
         }
       });
       var mailOptions = {
         to: user.email,
-        from: 'the.bus.app.project@gmail.com',
+        from: '111701013@smail.iitpkd.ac.in',
         subject: 'Password Reset',
         text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
           'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
@@ -208,7 +258,6 @@ app.get('/reset/:token', function(req, res) {
         console.log(err);
     }
     else if (!user) {
-        console.log("hahaha");
       req.flash('error', 'Password reset token is invalid or has expired.');
       return res.redirect('/forgot');
     }
@@ -257,13 +306,13 @@ app.post('/reset/:token', function(req, res) {
       var smtpTransport = nodemailer.createTransport({
         service: 'Gmail', 
         auth: {
-          user: 'the.bus.app.project@gmail.com',
-          pass: 'thebusapp'
+          user: 'relations.petrichor@iitpkd.ac.in',
+          pass: 'fest@iitpkd'
         }
       });
       var mailOptions = {
         to: user.email,
-        from: 'the.bus.app.project@gmail.com',
+        from: 'relations.petrichor@iitpkd.ac.in',
         subject: 'Your password has been changed',
         text: 'Hello,\n\n' +
           'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
@@ -293,8 +342,7 @@ app.get('/account/profile', function(req, res) {
         }
         else
         {
-          res.render('user.ejs', {data: {username: user.username, email: user.email, phone: user.phone}});
-          console.log({username: user.username, email: user.email, phone: user.phone}); // done now work on after this:-))
+          res.render('user.ejs', {user});
         }
       });
     }
@@ -304,16 +352,6 @@ app.get('/account/profile', function(req, res) {
     }
 });
 
-app.get('/edit_profile', function(req, res) {
-    if(!req.user) //User logged in
-      res.redirect('/login');
-});
-
-// app.post('/update_data', (req, res)=>{
-  
-//   User.findOne({uesrname: email: req.body.email})
-  
-// });
 
 function isLoggedIn(req, res, next){
     if(req.isAuthenticated()){

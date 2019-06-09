@@ -23,6 +23,8 @@
 
     <!--  CSS for Demo Purpose, don't include it in your project     -->
     <link href="stylesheets/demo.css" rel="stylesheet" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
     <!--     Fonts and icons     -->
@@ -31,7 +33,7 @@
     <link href="stylesheets/pe-icon-7-stroke.css" rel="stylesheet" />
 
 </head>
-<body background="https://github.com/RathoreDevansh08/FestWeb_CA-Portal/blob/master/Accounts_n_Profile_Page/back.jpeg?raw=true">
+<body style="background:#d7e0e0">
 
 <div class="wrapper">
     <div class="sidebar" data-color="blue" >
@@ -57,9 +59,9 @@
                     </a>
                 </li>
                 <li>
-                    <a href="account/notifications">
-                        <i class="pe-7s-bell"></i>
-                        <p>Notifications</p>
+                    <a href="account/registrations">
+                        <i class="pe-7s-ticket"></i>
+                        <p>Registrations</p>
                     </a>
                 </li>
             </ul>
@@ -90,16 +92,22 @@
                               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <i class="fa fa-globe"></i>
                                     <b class="caret hidden-sm hidden-xs"></b>
-                                    <span class="notification hidden-sm hidden-xs">3</span>
+                                    <% if(user.notifications.length != 0) { %>
+                                    <span class="notification hidden-sm hidden-xs"><%= user.notifications.length %></span>
 									<p class="hidden-lg hidden-md">
-										3 Notifications
+										<%= user.notifications.length %> Notifications
 										<b class="caret"></b>
 									</p>
+									<% } %>
                               </a>
                               <ul class="dropdown-menu">
-                                <li><a href="#">Notification 1</a></li>
-                                <li><a href="#">Notification 2</a></li>
-                                <li><a href="#">Notification 3</a></li>
+                                 <% if(user.notifications.length != 0) { %>
+                                <% for (var i=0; i < user.notifications.length; i++) { %>
+                                    <li style="color: red"><%= user.notifications[i] %></li>
+                                <% } %>
+                                <% } else { %>
+                                    <li style="color: grey; margin-left:1%;">No recent notification</li>
+                                <% } %>
                               </ul>
                         </li>
                     </ul>
@@ -122,19 +130,26 @@
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-4">
-                        <div class="card">
+                    <div class="col-md-12">
+                        <!--<div class="card" style = "background: #d7e0e0">-->
 
-                            <div class="header">
-                                <h4 class="title">CA Details</h4>
-                                <p class="category">Token No.: 12345</p>
+                            <div class="header" style="text-align: center; height: 70%; margin-bottom: 2%">
+                                <h2 style = "margin-bottom : 2%;">Token ID: <%= user.registerToken %></h2>
+                                <h2>Number of Registrations: <%= user.registrations.length %></h2>
+                    </div>
+                    
+                    <div class="header">
+                                <h3 style = "margin-bottom : 2%; background: #d7e0e0">Updates</h3>
+                                <h5> No Recent Updates.</h5>
                     </div>
 
                 </div>
 
 
 
-    </div>
+    
+</div>
+</div>
 </div>
 
 
