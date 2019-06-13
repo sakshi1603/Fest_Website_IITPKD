@@ -303,7 +303,7 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
     color:#2e7af4!important;
 }
 .accordion__header i{
-    position: absolute;
+    position:absolute;
     right: 0;
     top:0;
     line-height: inherit;
@@ -992,6 +992,12 @@ header {
     padding: 40px 20px;
     border: 1px solid #EEE;
     margin: 15px 0px;
+    background-color: #10161A
+}
+
+#about{
+    background-color: #10161A;
+    color: white !important;
 }
 
 .about i {
@@ -1148,7 +1154,7 @@ header {
 
 .service {
     position: relative;
-    height: 20vw;
+        height: 15vw;
     padding: 40px 20px 40px 70px;
     margin: 15px 0px;
     border: 1px solid #EEE;
