@@ -96,11 +96,12 @@
                                     <b class="caret hidden-sm hidden-xs"></b>
                                     <% if(user.notifications.length != 0) { %>
                                     <span class="notification hidden-sm hidden-xs"><%= user.notifications.length %></span>
+                                    <% } %>
 									<p class="hidden-lg hidden-md">
 										<%= user.notifications.length %> Notifications
 										<b class="caret"></b>
 									</p>
-									<% } %>
+									
                               </a>
                               <ul class="dropdown-menu">
                                  <% if(user.notifications.length != 0) { %>

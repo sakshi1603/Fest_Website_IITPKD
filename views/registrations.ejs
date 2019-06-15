@@ -60,7 +60,7 @@
                     </a>
                 </li>
                 <li class="active">
-                    <a href="/account/notifications">
+                    <a href="/account/registrations">
                         <i class="pe-7s-bell"></i>
                         <p>Registrations</p>
                     </a>
@@ -79,7 +79,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Notifications</a>
+                    <a class="navbar-brand" href="#">Registrations</a>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-left">
@@ -95,11 +95,12 @@
                                     <b class="caret hidden-sm hidden-xs"></b>
                                     <% if(user.notifications.length != 0) { %>
                                     <span class="notification hidden-sm hidden-xs"><%= user.notifications.length %></span>
+                                    <% } %>
 									<p class="hidden-lg hidden-md">
 										<%= user.notifications.length %> Notifications
 										<b class="caret"></b>
 									</p>
-									<% } %>
+									
                               </a>
                               <ul class="dropdown-menu">
                                  <% if(user.notifications.length != 0) { %>

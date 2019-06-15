@@ -43,6 +43,7 @@ Table OF Contents
 \*------------------------------------*/
 
 
+
 /* -- typography -- */
 @font-face {
     font-family: 'FiraSans-Medium';
@@ -60,11 +61,11 @@ Table OF Contents
 
 
 body {
-    font-family: 'Varela Round', sans-serif;
-    font-size: 16px;
+    font-family: 'Exo';
+    font-size: 18px;
     line-height: 1.6;
     overflow-x: hidden;
-    color: #868F9B;
+    color: #0052A2;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -72,7 +73,7 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 700;
     margin-top: 0px;
     margin-bottom: 20px;
-    color: #10161A;
+    color: #00A4DD;
 }
 
 h1 {
@@ -200,14 +201,14 @@ ul, ol {
     text-transform: capitalize;
 }
 
-.title:after {
-    content:"";
-  	display:block;
-  	height:4px;
-  	width:40px;
-  	background-color: #2e7af4;
-    margin-top: 20px;
-}
+/*.title:after {*/
+/*    content:"";*/
+/*  	display:block;*/
+/*  	height:4px;*/
+/*  	width:40px;*/
+/*  	background-color: #2e7af4;*/
+/*    margin-top: 20px;*/
+/*}*/
 
 .text-center .title:after {
     margin: 20px auto 0px;
@@ -452,32 +453,32 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
 	Responsibilities Responsive
 \*------------------------------------*/
 
-#responsibilities .service{
-    height: 17vw!important;
-}
+/*#responsibilities .service{*/
+/*    height: 17vw!important;*/
+/*}*/
 @media only screen and (max-width: 1434px){
-    #responsibilities .service{
-        height: 19vw!important;
-    }
-}
-@media only screen and (max-width: 1333px){
-    #responsibilities .service{
-        height: 21vw!important;
-    }
-}
-@media only screen and (max-width: 1265px){
-    #responsibilities .service{
-        height: 22vw!important;
-    }
-}
-@media only screen and (max-width: 1210px){
     #responsibilities .service{
         height: 23vw!important;
     }
 }
-@media only screen and (max-width: 1181px){
+@media only screen and (max-width: 1333px){
+    #responsibilities .service{
+        height: 26vw!important;
+    }
+}
+@media only screen and (max-width: 1265px){
+    #responsibilities .service{
+        height: 26vw!important;
+    }
+}
+@media only screen and (max-width: 1210px){
     #responsibilities .service{
         height: 28vw!important;
+    }
+}
+@media only screen and (max-width: 1181px){
+    #responsibilities .service{
+        height: 34vw!important;
     }
 }
 @media only screen and (max-width: 1130px){
@@ -579,7 +580,7 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
 \*------------------------------------*/
 
 #nav {
-    padding: 10px 0px;
+    padding: 0px 0px;
     background: #FFF;
     -webkit-transition: 0.2s padding;
     transition: 0.2s padding;
@@ -597,7 +598,8 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
     left: 0;
     right: 0;
     padding: 0px 0px;
-    background-color: rgba(0, 0, 0, 0.75) !important;
+    /*height: 20px;*/
+    /*background-color: rgba(0, 0, 0, 0.75) !important;*/
     /* border-bottom: 1px solid #EEE; */
 }
 
@@ -778,7 +780,7 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
         display: flex!important;
     }
     .bg1{
-        background-image: url(https://images.pexels.com/photos/853199/pexels-photo-853199.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260)!important
+        background-image: url(https://github.com/RathoreDevansh08/FestWeb_CA-Portal/blob/master/1.jpg?raw=true)!important
     }
     .bg2{
         background-image: url(https://images.pexels.com/photos/853199/pexels-photo-853199.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260)!important;
@@ -917,6 +919,10 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
 
 #nav.open .nav-collapse span {
     background: transparent;
+}
+
+#nav {
+    background: rgb(0,0,0)!important;
 }
 
 #nav.open .nav-collapse span:before {
@@ -1155,24 +1161,45 @@ header {
 .service {
     position: relative;
         height: 15vw;
-    padding: 40px 20px 40px 70px;
-    margin: 15px 0px;
-    border: 1px solid #EEE;
+    padding: 20px 20px 20px 20px;
+    /*margin: 35px 0px;*/
+    border: 3px solid #4ef2f5;
+    border-radius: 20px;
+    text-align: center;
 }
 
-.service i {
-    position: absolute;
-    left: 20px;
-    text-align: center;
-    font-size: 32px;
-    color: #2e7af4;
-    border-radius: 50%;
+.service img {
+    /*position: absolute;*/
+    /*left: 20px;*/
+    /*text-align: center;*/
+    /*font-size: 32px;*/
+    /*color: #4ef2f5;*/
+    width: 100px;
+    padding-bottom: 10px;
+    
+    /*border-radius: 50%;*/
+}
+
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
 
 .service:after {
     content: "";
-    background-color: #99b6e5;
+    background-color: #00264D;
     position: absolute;
+        border-radius: 20px;
+    
     left: 0;
     top: 0;
     bottom: 0;
@@ -1180,20 +1207,25 @@ header {
     z-index: -1;
     /*-webkit-transition: 0.2s width;*/
     /*transition: 0.2s width;*/
+    
+    /*border-radius: 20px;*/
+    
+  /*  animation: shake 0.5s;*/
+  /*animation-iteration-count: infinite;*/
 }
 
 .service:hover:after {
     width: 100%;
 }
 
-.service h3 {
-  -webkit-transition: 0.2s color;
-  transition: 0.2s color;
-}
+/*.service h3 {*/
+/*  -webkit-transition: 0.2s color;*/
+/*  transition: 0.2s color;*/
+/*}*/
 
-.service:hover h3 {
-    color: #fff;
-}
+/*.service:hover h3 {*/
+/*    color: #00498D;*/
+/*}*/
 
 /*------------------------------------*\
 	terms and conditions
@@ -2147,7 +2179,7 @@ header {
     top: 0;
     bottom: 0;
     right: 0;
-    background-color: rgba(10, 10, 10, 1);
+    background-color: rgba(0, 0, 0, 1);
     z-index: 99999;
 }
 
@@ -2162,14 +2194,14 @@ header {
 .preloader span {
     display: inline-block;
     background-color: #2e7af4;
-    width: 25px;
-    height: 25px;
+    width: 250px;
+    height: 250px;
     -webkit-animation: 1s preload ease-in-out infinite;
             animation: preload 1s ease-in-out infinite;
     -webkit-transform: scale(0);
         -ms-transform: scale(0);
             transform: scale(0);
-    border-radius:50%;
+    /*border-radius:50%;*/
 }
 
 .preloader span:nth-child(1) {
@@ -2220,4 +2252,51 @@ header {
     -webkit-transform:scale(0);
             transform:scale(0);
   }
+}
+
+
+
+.fq1 {
+  width: 83%;
+  height: 0%;
+  z-index: -1;
+  border-radius: 5px;
+  margin-left: 7%;
+  margin-bottom: 1%;
+  padding:5px 5px 5px 5px;
+}
+
+
+.fq2 {
+  padding:5px 5px 5px 5px;
+  width: 83%;
+  height: 0%;
+  float: right;
+  z-index: -1;
+  border-radius: 5px;
+  margin-right: 7%;
+  margin-bottom: 2%;
+}
+
+.fq3 {
+  width: 83%;
+  height: 0%;
+  z-index: -1;
+  border-radius: 5px;
+  margin-left: 7%;
+  margin-bottom: 1%;
+  margin-top:11%;
+  padding:5px 5px 5px 5px;
+}
+
+
+.fq4 {
+  width: 83%;
+  height: 0%;
+  float: right;
+  z-index: -1;
+  border-radius: 5px;
+  margin-right: 7%;
+  margin-bottom: 2%;
+  padding:5px 5px 5px 5px;
 }
