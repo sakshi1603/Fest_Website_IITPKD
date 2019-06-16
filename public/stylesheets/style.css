@@ -61,8 +61,8 @@ Table OF Contents
 
 
 body {
-    font-family: 'Exo';
-    font-size: 18px;
+    font-family: 'Satisfy', cursive;
+    font-size: 16px;
     line-height: 1.6;
     overflow-x: hidden;
     color: #0052A2;
@@ -980,11 +980,11 @@ header {
 }
 
 .header-wrapper .breadcrumb .breadcrumb-item.active {
-    color: #868F9B;
+    color: #c2e060;
 }
 
 .breadcrumb>li+li:before {
-    color: #868F9B;
+    color: #c2e060 ;
 }
 
 
@@ -1196,7 +1196,7 @@ header {
 
 .service:after {
     content: "";
-    background-color: #00264D;
+    background-color: #12f6c1;
     position: absolute;
         border-radius: 20px;
     
@@ -1210,22 +1210,23 @@ header {
     
     /*border-radius: 20px;*/
     
-  /*  animation: shake 0.5s;*/
-  /*animation-iteration-count: infinite;*/
+    animation: shake 0.5s;
+  animation-iteration-count: infinite;
 }
 
 .service:hover:after {
     width: 100%;
 }
 
-/*.service h3 {*/
-/*  -webkit-transition: 0.2s color;*/
-/*  transition: 0.2s color;*/
-/*}*/
+.service h3 {
+  -webkit-transition: 0.2s color;
+  transition: 0.2s color;
+}
 
-/*.service:hover h3 {*/
-/*    color: #00498D;*/
-/*}*/
+.service:hover h3 {
+    color: #00498D;
+    background-color: #12f6c1;
+}
 
 /*------------------------------------*\
 	terms and conditions
@@ -1237,7 +1238,7 @@ header {
 .feature i {
     float: left;
     padding: 5px;
-    border-radius: 50%;
+    border-radius: 10%;
     color: #2e7af4;
     border: 1px solid #2e7af4;
     margin-right: 5px;
@@ -2172,7 +2173,6 @@ header {
 	Preloader
 \*------------------------------------*/
 
-
 #preloader {
     position: fixed;
     left: 0;
@@ -2185,7 +2185,7 @@ header {
 
 .preloader {
     position: absolute;
-    left: 50%;
+    left: 55%;
     top: 50%;
     -webkit-transform: translate(-50%, -50%);
         -ms-transform: translate(-50%, -50%);
@@ -2201,7 +2201,7 @@ header {
     -webkit-transform: scale(0);
         -ms-transform: scale(0);
             transform: scale(0);
-    /*border-radius:50%;*/
+    border-radius:50%;
 }
 
 .preloader span:nth-child(1) {
