@@ -57,8 +57,8 @@ module.exports = function(passport) {
                       from: '111701013@smail.iitpkd.ac.in',
                       subject: 'IIT-PKD Petrichor',
                       text: 'Dear ' + newUser.name + ',\n\nThank you for registering with us.\n\nYour Petrichor Token ID is ' + 
-                              newUser.registerToken + '. Please make a note of this for future reference.\n\nThanks for showing interest in' + 
-                              'Petrichor 2019. Stay tuned for more updates.'
+                              newUser.registerToken + '. Please make a note of this for future reference.\n\nThanks for showing interest in ' + 
+                              'Petrichor 2020. Stay tuned for more updates.'
                     };
                     smtpTransport.sendMail(mailOptions);
                   }]);

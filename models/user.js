@@ -15,10 +15,11 @@ var UserSchema = new mongoose.Schema({
         address: String,
         phoneNumber: String,
         city: String,
-        country: String,
+        country: String,            //actually its state of user
         aboutMe: String,
         notifications: [],
-        registrations: []
+        registrations: [],
+        // updates: []
     
 });
 

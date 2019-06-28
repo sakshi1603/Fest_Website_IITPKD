@@ -1,19 +1,5 @@
-/*
-Theme Name:
-Author: yaminncco
+/*----------------------------------
 
-Colors:
-	Body 		  : #868F9B
-    Headers 	: #10161A
-    Primary(before)     :#6195FF
-	Primary(after) 	: #2e7af4
-	Dark      : #FCFCFF
-	Grey 		  : #F4F4F4 #FAFAFA #EEE
-
-Fonts: Montserrat Varela Round
-
-Table OF Contents
-------------------------------------
 1 > General
 2 > Logo
 3 > Navigation
@@ -61,11 +47,11 @@ Table OF Contents
 
 
 body {
-    font-family: 'Satisfy', cursive;
+    font-family: 'Roboto', sans-serif;
     font-size: 16px;
     line-height: 1.6;
     overflow-x: hidden;
-    color: #0052A2;
+    /*color: #55e0fe;*/
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -155,13 +141,13 @@ ul, ol {
 /* --  background section  -- */
 
 .bg-grey {
-    background-color: #FAFAFA;
-    border-top: 1px solid #EEE;
-    border-bottom: 1px solid #EEE;
+    background-color: #10161A;
+    border-top: 2px solid #111111;
+    border-bottom: 2px solid #111111;
 }
 
 .bg-dark {
-    background-color: #1C1D21;
+    background-color: #10161A;
 }
 
 
@@ -366,9 +352,9 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
 /*#whyca .col-md-3 {*/
 /*    width: 20%;*/
 /*}*/
-@media only screen and (max-width: 1518px){
+@media only screen and (min-width: 1478px){
     #whyca .service{
-        height: 23vw!important;
+        height: 25vw!important;
     }
 }
 @media only screen and (max-width: 1477px){
@@ -393,7 +379,7 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
 }
 @media only screen and (max-width: 1280px){
     #whyca .service{
-        height: 19vw!important;
+        height: 25vw!important;
     }
     #whyca .col-md-3 {
         width: 50%!important;
@@ -404,37 +390,37 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
 }
 @media only screen and (max-width: 1026px){
     #whyca .service{
-        height: 20vw!important;
+        height: 26vw!important;
     }
 }
 @media only screen and (max-width: 985px){
     #whyca .service{
-        height: 21vw!important;
+        height: 27vw!important;
     }
 }
 @media only screen and (max-width: 930px){
     #whyca .service{
-        height: 22vw!important;
+        height: 28vw!important;
     }
 }
 @media only screen and (max-width: 901px){
     #whyca .service{
-        height: 25vw!important;
+        height: 33vw!important;
     }
 }
 @media only screen and (max-width: 883px){
     #whyca .service{
-        height: 26vw!important;
+        height: 34vw!important;
     }
 }
 @media only screen and (max-width: 843px){
     #whyca .service{
-        height: 27vw!important;
+        height: 35vw!important;
     }
 }
 @media only screen and (max-width: 804px){
     #whyca .service{
-        height: 30vw!important;
+        height: 37vw!important;
     }
 }
 @media only screen and (max-width: 768px){
@@ -456,9 +442,9 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
 /*#responsibilities .service{*/
 /*    height: 17vw!important;*/
 /*}*/
-@media only screen and (max-width: 1434px){
+@media only screen and (min-width: 1334px){
     #responsibilities .service{
-        height: 23vw!important;
+        height: 25vw!important;
     }
 }
 @media only screen and (max-width: 1333px){
@@ -488,7 +474,7 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
 }
 @media only screen and (max-width: 1073px){
     #responsibilities .service{
-        height: 19vw!important;
+        height: 25vw!important;
     }
     #responsibilities .col-md-3 {
         width: 50%;
@@ -496,27 +482,27 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
 }
 @media only screen and (max-width: 1026px){
     #responsibilities .service{
-        height: 20vw!important;
+        height: 26vw!important;
     }
 }
 @media only screen and (max-width: 985px){
     #responsibilities .service{
-        height: 21vw!important;
+        height: 27vw!important;
     }
 }
 @media only screen and (max-width: 930px){
     #responsibilities .service{
-        height: 22vw!important;
+        height: 28vw!important;
     }
 }
 @media only screen and (max-width: 883px){
     #responsibilities .service{
-        height: 26vw!important;
+        height: 33vw!important;
     }
 }
 @media only screen and (max-width: 840px){
     #responsibilities .service{
-        height: 29vw!important;
+        height: 34vw!important;
     }
 }
 @media only screen and (max-width: 768px){
@@ -589,8 +575,9 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
 
 #nav.navbar {
     border: none;
-    border-radius: 0;
+    border-radius: 2;
     margin-bottom: 0px;
+    /*border-bottom: 1px solid #EEE; */
 }
 
 #nav.fixed-nav {
@@ -600,11 +587,15 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
     padding: 0px 0px;
     /*height: 20px;*/
     /*background-color: rgba(0, 0, 0, 0.75) !important;*/
-    /* border-bottom: 1px solid #EEE; */
+     /*border-bottom: 1px solid #EEE; */
 }
 
 #nav.nav-transparent {
     background: transparent;
+}
+
+.navbar-nav>li>a {
+    line-height: 30px;
 }
 
 
@@ -630,15 +621,26 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
         background: transparent;
         color: #fff;
     }
-    .main-nav>li>a:after {
+    /*.main-nav>li>a:after {*/
+    /*    content: "";*/
+    /*    display: block;*/
+    /*    background-color: #00A4DD;*/
+    /*    height: 2px;*/
+    /*    width: 0%;*/
+    /*    -webkit-transition: 0.2s width;*/
+    /*    transition: 0.2s width;*/
+    /*}*/
+    
+    .line>a:after {
         content: "";
         display: block;
-        background-color: #d7d1e8;
+        background-color: #00A4DD;
         height: 2px;
         width: 0%;
         -webkit-transition: 0.2s width;
         transition: 0.2s width;
     }
+    
     .main-nav>li>a:hover:after, .main-nav>li.active>a:after {
         width: 100%;
     }
@@ -780,7 +782,7 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
         display: flex!important;
     }
     .bg1{
-        background-image: url(https://github.com/RathoreDevansh08/FestWeb_CA-Portal/blob/master/1.jpg?raw=true)!important
+        background-image: url(https://github.com/himanshu2047/FestWeb_CA-Portal/blob/master/home2.0.png?raw=true)!important
     }
     .bg2{
         background-image: url(https://images.pexels.com/photos/853199/pexels-photo-853199.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260)!important;
@@ -1160,9 +1162,9 @@ header {
 
 .service {
     position: relative;
-        height: 15vw;
+    height: 40vw;
     padding: 20px 20px 20px 20px;
-    /*margin: 35px 0px;*/
+    
     border: 3px solid #4ef2f5;
     border-radius: 20px;
     text-align: center;
@@ -1175,28 +1177,28 @@ header {
     /*font-size: 32px;*/
     /*color: #4ef2f5;*/
     width: 100px;
-    padding-bottom: 10px;
+    padding-bottom: 5px;
     
     /*border-radius: 50%;*/
 }
 
-@keyframes shake {
-  0% { transform: translate(1px, 1px) rotate(0deg); }
-  10% { transform: translate(-1px, -2px) rotate(-1deg); }
-  20% { transform: translate(-3px, 0px) rotate(1deg); }
-  30% { transform: translate(3px, 2px) rotate(0deg); }
-  40% { transform: translate(1px, -1px) rotate(1deg); }
-  50% { transform: translate(-1px, 2px) rotate(-1deg); }
-  60% { transform: translate(-3px, 1px) rotate(0deg); }
-  70% { transform: translate(3px, 1px) rotate(-1deg); }
-  80% { transform: translate(-1px, -1px) rotate(1deg); }
-  90% { transform: translate(1px, 2px) rotate(0deg); }
-  100% { transform: translate(1px, -2px) rotate(-1deg); }
-}
+/*@keyframes shake {*/
+/*  0% { transform: translate(1px, 1px) rotate(0deg); }*/
+/*  10% { transform: translate(-1px, -2px) rotate(-1deg); }*/
+/*  20% { transform: translate(-3px, 0px) rotate(1deg); }*/
+/*  30% { transform: translate(3px, 2px) rotate(0deg); }*/
+/*  40% { transform: translate(1px, -1px) rotate(1deg); }*/
+/*  50% { transform: translate(-1px, 2px) rotate(-1deg); }*/
+/*  60% { transform: translate(-3px, 1px) rotate(0deg); }*/
+/*  70% { transform: translate(3px, 1px) rotate(-1deg); }*/
+/*  80% { transform: translate(-1px, -1px) rotate(1deg); }*/
+/*  90% { transform: translate(1px, 
+/*  100% { transform: translate(1px, -2px) rotate(-1deg); }*/
+/*}*/
 
 .service:after {
     content: "";
-    background-color: #12f6c1;
+    background-color: #129ec1;  /*#12f6c1;*/
     position: absolute;
         border-radius: 20px;
     
@@ -1214,6 +1216,10 @@ header {
   animation-iteration-count: infinite;
 }
 
+.service p {
+    margin-bottom: 10px;
+}
+
 .service:hover:after {
     width: 100%;
 }
@@ -1224,8 +1230,8 @@ header {
 }
 
 .service:hover h3 {
-    color: #00498D;
-    background-color: #12f6c1;
+    color: #00172D;
+    background-color: #129ec1;
 }
 
 /*------------------------------------*\
@@ -1237,11 +1243,15 @@ header {
 }
 .feature i {
     float: left;
-    padding: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 5px;
+    padding-left: 5px;
     border-radius: 10%;
     color: #2e7af4;
-    border: 1px solid #2e7af4;
+    /*border: 1px solid #2e7af4;*/
     margin-right: 5px;
+    /*margin-left: 5px;*/
 }
 
 /*------------------------------------*\
@@ -2185,7 +2195,7 @@ header {
 
 .preloader {
     position: absolute;
-    left: 55%;
+    left: 50%;
     top: 50%;
     -webkit-transform: translate(-50%, -50%);
         -ms-transform: translate(-50%, -50%);
@@ -2299,4 +2309,16 @@ header {
   margin-right: 7%;
   margin-bottom: 2%;
   padding:5px 5px 5px 5px;
+}
+
+.fq5 {
+  width: 100%;
+  /*height: 0%;*/
+  /*z-index: -1;*/
+  /*border-radius: 5px;*/
+  /*margin-left: 7%;*/
+  /*margin-bottom: 1%;*/
+  padding-left:7px;
+  padding-right: 7px;
+  text-align:center;
 }

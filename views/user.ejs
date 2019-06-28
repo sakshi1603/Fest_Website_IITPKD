@@ -61,7 +61,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/account/notifications">
+                    <a href="/account/registrations">
                         <i class="pe-7s-bell"></i>
                         <p>Registrations</p>
                     </a>
@@ -106,7 +106,9 @@
                               <ul class="dropdown-menu">
                                  <% if(user.notifications.length != 0) { %>
                                 <% for (var i=0; i < user.notifications.length; i++) { %>
-                                    <li style="color: red"><%= user.notifications[i] %></li>
+                                <div class="card">
+                                    <li style="padding-left:3%;"><%= user.notifications[i] %></li>
+                                    </div>
                                 <% } %>
                                 <% } else { %>
                                     <li style="color: grey; margin-left:1%;">No recent notification</li>
@@ -148,6 +150,7 @@
                                             <div class="form-group">
                                                 <label>Username</label>
                                                 <input type="text" name="username" class="form-control" placeholder="Username" value = "<%= user.username %>" >
+                                                <h6 style="color:red; margin-top:3%;"><%= message %></h6>
                                             </div>
                                         </div>
                                     </div>
@@ -173,8 +176,8 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label>Address</label>
-                                                <input type="text" name="address" class="form-control" placeholder="Home Address" value="<%= user.address %>">
+                                                <label>Current Postal Address</label>
+                                                <input type="text" name="address" class="form-control" placeholder="Current Postal Address" value="<%= user.address %>">
                                             </div>
                                         </div>
                                     </div>
@@ -197,8 +200,8 @@
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label>Country</label>
-                                                <input type="text" name="country" class="form-control" placeholder="Country" value="<%= user.country %>">
+                                                <label>State</label>
+                                                <input type="text" name="country" class="form-control" placeholder="State" value="<%= user.country %>">
                                             </div>
                                         </div>
                                     </div>

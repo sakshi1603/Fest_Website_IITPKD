@@ -1,7 +1,9 @@
+/* Made with love by Mutiullah Samim*/
+
 @import url('https://fonts.googleapis.com/css?family=Numans');
 
 html,body{
-/*background-image: url('https://github.com/RathoreDevansh08/FestWeb_CA-Portal/blob/master/1.jpg?raw=true');*/
+/*background-image: url('https://raw.githubusercontent.com/RathoreDevansh08/FestWeb_CA-Portal/master/1.jpg');*/
 background-color: #10161A;
 background-size: cover;
 background-repeat: no-repeat;
@@ -15,7 +17,7 @@ align-content: center;
 }
 
 .card{
-height: 370px;
+height: 270px;
 margin-top: auto;
 margin-bottom: auto;
 width: 400px;
@@ -23,33 +25,17 @@ background-color: rgba(0,0,0,0.6) !important;
 }
 
 .card:hover{
-height: 370px;
+height: 270px;
 margin-top: auto;
 margin-bottom: auto;
 width: 400px;
 background-color: rgba(0,0,0,0.4) !important;
 }
 
-.social_icon span{
-font-size: 60px;
-margin-left: 10px;
-color: #FFC312;
-}
-
-.social_icon span:hover{
-color: white;
-cursor: pointer;
-}
-
 .card-header h3{
 color: white;
 }
 
-.social_icon{
-position: absolute;
-right: 20px;
-top: -45px;
-}
 
 .input-group-prepend span{
 width: 50px;
@@ -64,22 +50,11 @@ box-shadow: 0 0 0 0 !important;
 
 }
 
-.remember{
-color: white;
-}
-
-.remember input
-{
-width: 20px;
-height: 20px;
-margin-left: 15px;
-margin-right: 5px;
-}
-
 .login_btn{
+margin-right: auto;
 color: black;
 background-color: #FFC312;
-width: 100px;
+width: 200px;
 }
 
 .login_btn:hover{

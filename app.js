@@ -8,12 +8,13 @@ var bodyParser = require("body-parser");
 var Joi = require("joi"); // This module could be used for evaluating user input
 var passport = require("passport");
 var LocalStrategy = require("passport-local");
-var User = require("./models/user");
+var User = require("./models/user");  
 var bcrypt = require('bcrypt');
 var crypto = require('crypto');
 var cookieParser = require("cookie-parser");
-var nodemailer = require("nodemailer");
+var nodemailer = require("nodemailer");       // made by the great head himanshu jain and the team .... Devansh Satchit Ahmed.....   :-)  lovely.... awesome ... ofcourse me!
 var async = require("async");
+var updates = require("./models/updates");
 
 require('./config/passport')(passport);
 
@@ -43,12 +44,22 @@ app.get("/", function(req,res){
    res.render("home.ejs");
 });
 
+
 app.get("/account", isLoggedIn, function(req,res){
-    res.render("account.ejs", { user: req.user });
+  updates.findOne({}, function(err, updates) {
+    if(err) {
+      console.log("some error has occured");
+      res.render('home.ejs');
+    } else  {
+      console.log(updates);
+      res.render("account.ejs", { user: req.user, updates: updates.updates });
+    }
+  })
+    
 });
 
 app.get("/signup", function(req,res){
-    res.render("signup.ejs");
+    res.render("signup.ejs", {message:""});
 });
 
 app.get("/account/registrations", isLoggedIn, function(req,res){
@@ -67,7 +78,17 @@ app.get('/auth/google/callback',
 	                                      failureRedirect: '/' }));
 	                                      
 app.post("/updateProfile", (req, res) => {
-  User.findOne({ email: req.body.email }, function(err,user) {
+  
+  User.findOne({ username: req.body.username }, function(err,user){
+        if(err) {
+          res.send(err);
+        }
+        else if(user && user.username!=req.body.username) {
+          // req.body.username = "";
+          res.render('user.ejs', { message: "This username is already taken", user });
+          // return;
+        } else {
+          User.findOne({ email: req.body.email }, function(err,user) {
     if(err) {
       res.send("Some error has occured");
       console.log(err);
@@ -85,6 +106,8 @@ app.post("/updateProfile", (req, res) => {
         user.notifications = user.notifications.slice(1,user.notifications.length);
       }
       
+      
+      
       user.save(function (err) {
         if(err) {
             console.log(err);
@@ -94,6 +117,10 @@ app.post("/updateProfile", (req, res) => {
       console.log(user);
     }
   });
+        }
+      });
+      
+  
   
 });
 	                                      
@@ -112,12 +139,14 @@ app.post("/addUser", (req, res)=>{
     Joi.validate(req.body, inputSchema, (error, result)=>{ // This will evaluate it
         if(error)
         {
-            res.send("Some error has occurred");
+            // res.send("Some error has occurred");
             console.log(error);
+            res.render('signup.ejs', {message: "Password should be atleast 6 digit long"});
         }
         else if(result.password != result.repass)
         {
-            res.send("Enter the same pass in pass and respass");
+            // res.send("Enter the same pass in pass and respass");
+            res.render('siginup.ejs', {message: "Please enter the same passwords"})
             console.log('here');
         }
         else
@@ -125,19 +154,32 @@ app.post("/addUser", (req, res)=>{
           User.findOne({ email: result.email }, function(err, user) {
             if(err){
                 console.log(err);
+                res.redirect('/signup');
+                return
             }
             if (user) {
-              req.flash('error', 'User with this email is already registered');
-              res.redirect('/login');
+              // req.flash('error', 'User with this email is already registered');
+              res.render('signup.ejs', {message: "This email id already exists"});
             }
             else {
+              User.findOne({ username: result.username }, function(err,user){
+                if(err) {
+                  console.log(err);
+                  res.redirect('/signup');
+                }
+                else if(user) {
+                  res.render('signup.ejs', {message: "This username is already taken"});
+                  return;
+                }
+              });
               console.log(result);
               var pass_hash = bcrypt.hashSync(result.password, 10);
               var token = randomstring.generate(7);
               User.register(new User({name: result.name, email: result.email, registerToken:token, notifications: ["Please update your profile in the profile section."], username: result.username, college_name: result.college_name, password: pass_hash}), result.password, function(err, user){
                   if(err){
                       console.log(err);
-                      return res.render('signup.ejs');
+                      res.render('signup.ejs', {message: "This username is already taken"});
+                      return
                   }
                   passport.authenticate("local")(req, res, function(){
                     async.waterfall([function(){
@@ -154,8 +196,8 @@ app.post("/addUser", (req, res)=>{
                       from: '111701013@smail.iitpkd.ac.in',
                       subject: 'IIT-PKD Petrichor',
                       text: 'Dear ' + result.name + ',\n\nThank you for registering with us.\n\nYour Petrichor Token ID is ' + 
-                              token + '. Please make a note of this for future reference.\n\nThanks for showing interest in' + 
-                              'Petrichor 2019. Stay tuned for more updates.'
+                              token + '. Please make a note of this for future reference.\n\nThanks for showing interest in ' + 
+                              'Petrichor 2020. Stay tuned for more updates.'
                     };
                     smtpTransport.sendMail(mailOptions);
                        res.redirect("/account");
@@ -342,7 +384,7 @@ app.get('/account/profile', function(req, res) {
         }
         else
         {
-          res.render('user.ejs', {user});
+          res.render('user.ejs', {message: "", user});
         }
       });
     }

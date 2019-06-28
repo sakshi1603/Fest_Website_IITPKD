@@ -2,7 +2,8 @@
 @import url('https://fonts.googleapis.com/css?family=Numans');
 
 html,body{
-background-image: url('https://github.com/RathoreDevansh08/FestWeb_CA-Portal/blob/master/3.jpg');
+/*background-image: url('https://github.com/RathoreDevansh08/FestWeb_CA-Portal/blob/master/1.jpg?raw=true');*/
+background-color: #10161A;
 background-size: cover;
 background-repeat: no-repeat;
 height: 100%;
@@ -15,7 +16,7 @@ align-content: center;
 }
 
 .card{
-height: 520px;
+height: 550px;
 margin-top: auto;
 margin-bottom: auto;
 width: 400px;
@@ -23,7 +24,7 @@ background-color: rgba(0,0,0,0.6) !important;
 }
 
 .card:hover{
-height: 520px;
+height: 550px;
 margin-top: auto;
 margin-bottom: auto;
 width: 400px;
