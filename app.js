@@ -340,7 +340,7 @@ app.post('/reset/:token', function(req, res) {
           });
         } else {
             req.flash("error", "Passwords do not match.");
-            return res.redirect('back');
+            return res.redirect('login.ejs');
         }
       });
     },

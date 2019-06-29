@@ -1239,9 +1239,10 @@ header {
 \*------------------------------------*/
 
 .feature {
-    margin: 15px 0px;
+    /*margin: 15px 0px;*/
 }
 .feature i {
+      /*list-style-position: outside;*/
     float: left;
     padding-top: 5px;
     padding-bottom: 5px;
@@ -1250,8 +1251,13 @@ header {
     border-radius: 10%;
     color: #2e7af4;
     /*border: 1px solid #2e7af4;*/
-    margin-right: 5px;
-    /*margin-left: 5px;*/
+    /*margin-right: 5px;*/
+    /*margin-left: 10px;*/
+}
+
+ul.bull{
+    list-style-position: outside;
+    list-style-type: none;
 }
 
 /*------------------------------------*\

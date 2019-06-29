@@ -104,12 +104,12 @@
                               <ul class="dropdown-menu">
                                  <% if(user.notifications.length != 0) { %>
                                 <% for (var i=0; i < user.notifications.length; i++) { %>
-                                <div class="card">
-                                    <li style="padding-left:3%;"><%= user.notifications[i] %></li>
+                                <div class="header">
+                                    <li style="padding-left:3%; color: black;"><%= user.notifications[i] %></li>
                                     </div>
                                 <% } %>
                                 <% } else { %>
-                                    <div class="card">
+                                    <div class="header">
                                     <li style="color: grey; margin-left:3%;">No recent notification</li>
                                     </div>
                                 <% } %>
@@ -218,4 +218,14 @@
 //     	});
 // 	</script>
 
+    <script type="text/javascript">
+    $(document).ready(function(){
+        console.log("hhh");
+        if(user.notifications[0] == "Please update your profile in the profile section.") {
+            console.log("uhhh");
+            location.href = "account/profile";
+        }
+    });
+    </script>
+    
 </html>
