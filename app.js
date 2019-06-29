@@ -19,7 +19,7 @@ var updates = require("./models/updates");
 require('./config/passport')(passport);
 
 
-mongoose.connect("mongodb://localhost/website", {useNewUrlParser: true});
+mongoose.connect("mongodb+srv://recursed:durga%40B90@cluster0-piv3a.mongodb.net/caPortal?retryWrites=true&w=majority", {useNewUrlParser: true});
 mongoose.set('useCreateIndex', true);
 
 app.use(morgan('dev'));
