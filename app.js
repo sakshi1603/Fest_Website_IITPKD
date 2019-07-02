@@ -15,11 +15,16 @@ var cookieParser = require("cookie-parser");
 var nodemailer = require("nodemailer");       // made by the great head himanshu jain and the team .... Devansh Satchit Ahmed.....   :-)  lovely.... awesome ... ofcourse me!
 var async = require("async");
 var updates = require("./models/updates");
+var http = require("http");
 
 require('./config/passport')(passport);
 
+var server = app.listen(3000, function(req,res) {
+	console.log("Server is running");
+});
 
-mongoose.connect("mongodb://localhost/website", {useNewUrlParser: true});
+
+mongoose.connect("mongodb+srv://recursed:durga%40B90@cluster0-piv3a.mongodb.net/caPortal?retryWrites=true&w=majority", {useNewUrlParser: true});
 mongoose.set('useCreateIndex', true);
 
 app.use(morgan('dev'));
@@ -402,6 +407,6 @@ function isLoggedIn(req, res, next){
     res.redirect("/login");
 }
 
-app.listen(process.env.PORT, process.env.IP,function(){
-    console.log("Server is running!!!");
-});
+// app.listen(process.env.PORT, process.env.IP,function(){
+//     console.log("Server is running!!!");
+// });
